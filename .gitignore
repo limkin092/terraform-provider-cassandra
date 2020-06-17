@@ -15,3 +15,8 @@
 
 # final binary
 terraform-provider-cassandra
+
+# ignore vscode
+.vscode
+
+dist
