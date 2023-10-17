@@ -143,6 +143,12 @@ func Provider() *schema.Provider {
 				Default:     4,
 				Description: "CQL Binary Protocol Version",
 			},
+			"enable_host_verification": &schema.Schema{
+				Type:		schema.TypeString,
+				Optional: 	true,
+				Default:	false,
+				Description: "Verifying host",
+			},
 			"consistency": &schema.Schema{
 				Type:        schema.TypeString,
 				Optional:    true,
@@ -263,6 +269,7 @@ func configureProvider(ctx context.Context, d *schema.ResourceData) (interface{}
 
 		cluster.SslOpts = &gocql.SslOptions{
 			Config: tlsConfig,
+			EnableHostVerification: d.Get("enable_host_verification").(bool),
 		}
 	}
 
