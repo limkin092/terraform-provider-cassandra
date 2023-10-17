@@ -11,3 +11,5 @@ It will provide the following features with respect to CQL 3.0.0 spec
 -	[Go](https://golang.org/doc/install) >= 1.15
 
 ## [Documentation](docs/)
+
+This is forked from https://github.com/DrFaust92/terraform-provider-cassandra.
