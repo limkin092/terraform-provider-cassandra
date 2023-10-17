@@ -143,6 +143,18 @@ func Provider() *schema.Provider {
 				Default:     4,
 				Description: "CQL Binary Protocol Version",
 			},
+			"enable_host_verification": &schema.Schema{
+				Type:		schema.TypeBool,
+				Optional: 	true,
+				Default:	false,
+				Description: "Verifying host",
+			},
+			"insecure_skip_verify": &schema.Schema{
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Default: 	 false,
+				Description: "InsecureSkipVerify controls whether a client verifies the servers certificate chain and host name. If InsecureSkipVerify is true, crypto/tls accepts any certificate presented by the server and any host name in that certificate.",
+			},
 			"consistency": &schema.Schema{
 				Type:        schema.TypeString,
 				Optional:    true,
@@ -243,6 +255,7 @@ func configureProvider(ctx context.Context, d *schema.ResourceData) (interface{}
 
 		tlsConfig := &tls.Config{
 			MinVersion: allowedTLSProtocols[minTLSVersion],
+			InsecureSkipVerify: d.Get("insecure_skip_verify").(bool),
 		}
 
 		if rootCA != "" {
@@ -263,6 +276,7 @@ func configureProvider(ctx context.Context, d *schema.ResourceData) (interface{}
 
 		cluster.SslOpts = &gocql.SslOptions{
 			Config: tlsConfig,
+			EnableHostVerification: d.Get("enable_host_verification").(bool),
 		}
 	}
 

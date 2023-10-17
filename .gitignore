@@ -21,3 +21,6 @@ terraform-provider-cassandra
 
 dist
 vendor/*
+dist/
+
+.DS_Store
